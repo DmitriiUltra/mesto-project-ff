@@ -1,3 +1,6 @@
+import './cards.js';
+import '../pages/index.css';
+
 // @todo: Темплейт карточки
 const cardTemplate = document.querySelector('#card-template').content;
 
@@ -21,7 +24,6 @@ function createCard(name, link, deleteCard) {
 // @todo: Функция удаления карточки
 function deleteCard(event) {
     const deleteItem = event.target.closest('.card');
-
     deleteItem.remove();
 }
 
