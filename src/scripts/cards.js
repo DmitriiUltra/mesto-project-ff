@@ -25,24 +25,4 @@ const initialCards = [
   }
 ];
 
-//Функция создания карточки
-function createCard(name, link, deleteCard) {
-  const cardTemplate = document.querySelector('#card-template').content;
-  const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-  const deleteButton = cardElement.querySelector('.card__delete-button');
-  
-  cardElement.querySelector('.card__title').textContent = name;
-  cardElement.querySelector('.card__image').src = link;
-
-  deleteButton.addEventListener('click', deleteCard);
-
-  return cardElement;
-}
-
-//Функция удаления карточки
-function deleteCard(event) {
-  const deleteItem = event.target.closest('.card');
-  deleteItem.remove();
-}
-
-export { createCard, deleteCard, initialCards };
+export {initialCards};
