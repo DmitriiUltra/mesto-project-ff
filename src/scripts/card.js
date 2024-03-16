@@ -1,5 +1,3 @@
-import {openModal} from './modal.js';
-
 // Функция создания карточки
 function createCard(name, link, deleteCard, likeCard, openLargeCard) {
     const cardTemplate = document.querySelector('#card-template').content;
@@ -12,36 +10,21 @@ function createCard(name, link, deleteCard, likeCard, openLargeCard) {
     cardImg.src = link;
     cardImg.alt = name;
   
-    likeButton.addEventListener('click', likeCard);
-    deleteButton.addEventListener('click', deleteCard);
-    cardImg.addEventListener('click', openLargeCard);
-  
+    likeButton.addEventListener('click', () => likeCard(likeButton));
+    deleteButton.addEventListener('click', () => deleteCard(cardElement));
+    cardImg.addEventListener('click', () => openLargeCard({name, link}));
+
     return cardElement;
   }
   
   // Функция удаления карточки
-  function deleteCard(evt) {
-    const deleteItem = evt.target.closest('.card');
-    deleteItem.remove();
-  }
+  function deleteCard(cardElement) {  
+    cardElement.remove(); 
+  };  
 
   // Функция лайка карточки
   function likeCard(evt) {
-    const buttonLike = evt.target.closest('.card__like-button');
-    buttonLike.classList.toggle('card__like-button_is-active');
-  }
-
-  // Функция открытия большой карточки
-  function openLargeCard(evt) {
-    const image = evt.target;
-    const largeImagePopup = document.querySelector('.popup_type_image');
-    const imagePopup = largeImagePopup.querySelector('.popup__image');
-    const titlePopup = largeImagePopup.querySelector('.popup__caption');
-
-    imagePopup.src = image.src;
-    imagePopup.alt = image.alt;
-    titlePopup.alt = image.alt;
-    openModal(largeImagePopup);
+    evt.classList.toggle('card__like-button_is-active');
   }
   
-  export {createCard, deleteCard, likeCard, openLargeCard};
+  export {createCard, deleteCard, likeCard};
