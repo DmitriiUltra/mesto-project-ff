@@ -13,3 +13,12 @@
   position: relative;
   overflow: hidden;
 }
+
+.card__like-container {
+  display: flex;
+  align-items: center;
+  flex-direction: column;
+  gap: 3px;
+  font-size: 13px;
+  font-weight: 400;
+}

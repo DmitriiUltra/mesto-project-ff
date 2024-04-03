@@ -1,6 +1,5 @@
 // Функция открытия модального окна
 function openModal(popup) {
-    popup.classList.add('popup_is-animated');
     popup.classList.add('popup_is-opened');
     document.addEventListener('keydown', closeModalForEsc);
 };
@@ -26,3 +25,5 @@ function closeModalForOverlay(evt) {
 };
 
 export {openModal, closeModal, closeModalForOverlay};
+
+
