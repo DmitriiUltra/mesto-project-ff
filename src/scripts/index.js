@@ -166,7 +166,6 @@ function openDeleteConfirmationPopup(cardId) {
         evt.preventDefault();
         deleteCard(cardId)
             .then(() => {
-                console.log(cardId)
                 deleteCardElement(cardId);
                 closeModal(popupDeleteCard);
             })
