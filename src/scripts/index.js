@@ -84,10 +84,10 @@ popupOverlays.forEach((item) => {
 
 // Функция для обработки отправки формы редактирования профиля
 function handleFormEditProfileSubmit(evt) {
-    evt.preventDefault(); 
+    evt.preventDefault();
     const newName = profileEditNameInput.value;
     const newAbout = profileEditAboutInput.value;
-    
+
     turnLoading(true, profileEditForm.querySelector('.popup__button'));
     editMyProfile(newName, newAbout)
         .then(() => {
@@ -104,7 +104,7 @@ function handleFormEditProfileSubmit(evt) {
 };
 
 // Слушатель события на форме редактирования профиля
-profileEditForm.addEventListener('submit', handleFormEditProfileSubmit); 
+profileEditForm.addEventListener('submit', handleFormEditProfileSubmit);
 
 // Открытие модального окна новой карточки
 buttonAddCard.addEventListener('click', function() {
@@ -119,8 +119,11 @@ function createNewCard(evt) {
 
     turnLoading(true, newCardForm.querySelector('.popup__button'));
     sendNewCard(newCardNameInput.value, newCardLinkInput.value)
-        .then(() => {
-            cardPlace.prepend(createCard(newCardNameInput.value, newCardLinkInput.value, toggleLike, deleteCardElement, openLargeCard, isOwner, openDeleteConfirmationPopup, card));
+        .then((card) => {
+            // 1. Пропустил данные по лайкам
+            // 2. Не передал собственно card, которая возврщается из апи
+            // 3. Я передал isOwner как true по умолчанию, тк при создании она все равно не может быть чужой
+            cardPlace.prepend(createCard(newCardNameInput.value, newCardLinkInput.value, card.likes.length, toggleLike, deleteCardElement, openLargeCard, true, openDeleteConfirmationPopup, card));
             closeModal(popupAddCard);
         })
         .catch((err) => {
@@ -146,7 +149,7 @@ function openLargeCard({name, link}) {
 // function openDeleteConfirmationPopup(deleteButton, cardElement) {
 //     openModal(popupDeleteCard);
 //     const delCardForm = popupDeleteCard.querySelector('.popup__form');
-    
+
 //     delCardForm.addEventListener('submit', (evt) => {
 //         evt.preventDefault();
 //         deleteCard(cardElement);
@@ -158,11 +161,12 @@ function openLargeCard({name, link}) {
 function openDeleteConfirmationPopup(cardId) {
     openModal(popupDeleteCard);
     const delCardForm = popupDeleteCard.querySelector('.popup__form');
-    
+
     delCardForm.addEventListener('submit', (evt) => {
         evt.preventDefault();
         deleteCard(cardId)
             .then(() => {
+                console.log(cardId)
                 deleteCardElement(cardId);
                 closeModal(popupDeleteCard);
             })
@@ -208,4 +212,4 @@ function turnLoading(form, button) {
     } else {
       button.textContent = textSave;
     }
-  } 
+  }

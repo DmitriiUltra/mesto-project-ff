@@ -10,6 +10,8 @@ function createCard(name, link, likes, toggleLike, deleteCardElement, openLargeC
     const likeBox = cardElement.querySelector('.card__like-box');
 
     cardElement.querySelector('.card__title').textContent = name;
+    // Ты пытался удалить карточку по айди, но у элемента не было айдишника
+    cardElement.setAttribute('id', card._id)
     cardImg.src = link;
     cardImg.alt = name;
     likeBox.textContent = likes;
@@ -19,7 +21,7 @@ function createCard(name, link, likes, toggleLike, deleteCardElement, openLargeC
       } else {
         deleteButton.style.display = 'none';
       }
-  
+
     likeButton.addEventListener('click', () => toggleLike(card._id, likeButton, likeBox));
     cardImg.addEventListener('click', () => openLargeCard({name, link}));
 
@@ -31,11 +33,11 @@ function createCard(name, link, likes, toggleLike, deleteCardElement, openLargeC
 
     return cardElement;
   };
-  
+
 //   // Функция удаления карточки
-//   function deleteCardElement(cardElement) {  
-//     cardElement.remove(); 
-//   };  
+//   function deleteCardElement(cardElement) {
+//     cardElement.remove();
+//   };
 
 //   // Функция лайка карточки
 //   function likeCard(evt) {
@@ -44,8 +46,8 @@ function createCard(name, link, likes, toggleLike, deleteCardElement, openLargeC
 
 
 // Функция удаляет элемент карточки из DOM
-  function deleteCardElement(card) {
-    const cardToDelete = document.getElementById(card._id);
+  function deleteCardElement(cardId) {
+    const cardToDelete = document.getElementById(cardId);
     if (cardToDelete) {
         cardToDelete.remove();
     }
@@ -79,5 +81,5 @@ function toggleLike(cardId, likeButton, likeBox) {
 
 
 
-  
+
   export {createCard, toggleLike, deleteCardElement};
