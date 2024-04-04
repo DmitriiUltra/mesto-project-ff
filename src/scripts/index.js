@@ -56,10 +56,10 @@ Promise.all([myProfileData, cardsData])
     const isOwner = card.owner._id === profile._id;
     const cardElement = createCard(card.name, card.link, card.likes.length, toggleLike, deleteCardElement, openLargeCard, isOwner, openDeleteConfirmationPopup, card);
     cardPlace.append(cardElement);
-    });
+    })
   })
   .catch((err) => {
-    console.log(err);
+    console.log(err)
   });
 
 // Открытие модального окна редактирования профиля
@@ -119,10 +119,10 @@ function createNewCard(evt) {
 
     turnLoading(true, newCardForm.querySelector('.popup__button'));
     sendNewCard(newCardNameInput.value, newCardLinkInput.value)
-        .then(() => {
-            cardPlace.prepend(createCard(newCardNameInput.value, newCardLinkInput.value, toggleLike, deleteCardElement, openLargeCard, isOwner, openDeleteConfirmationPopup, card));
-            closeModal(popupAddCard);
-        })
+    .then((card) => {
+        cardPlace.prepend(createCard(newCardNameInput.value, newCardLinkInput.value, card.likes.length, toggleLike, deleteCardElement, openLargeCard, true, openDeleteConfirmationPopup, card));
+        closeModal(popupAddCard);
+    })
         .catch((err) => {
             console.error('Ошибка при добавлении новой карточки:', err);
         })
@@ -142,18 +142,6 @@ function openLargeCard({name, link}) {
     openModal(largeImagePopup);
   };
 
-// // Открытие модального окна подтверждения удаления карточки
-// function openDeleteConfirmationPopup(deleteButton, cardElement) {
-//     openModal(popupDeleteCard);
-//     const delCardForm = popupDeleteCard.querySelector('.popup__form');
-    
-//     delCardForm.addEventListener('submit', (evt) => {
-//         evt.preventDefault();
-//         deleteCard(cardElement);
-//         closeModal(popupDeleteCard);
-//     });
-// };
-
 // Функция для открытия модального окна подтверждения удаления карточки
 function openDeleteConfirmationPopup(cardId) {
     openModal(popupDeleteCard);
@@ -170,13 +158,13 @@ function openDeleteConfirmationPopup(cardId) {
                 console.error('Ошибка при удалении карточки:', err);
             });
     });
-}
+};
 
 // Слушатель на клик по изображению профиля
 profileImage.addEventListener('click', function() {
-    clearValidation(avatarChangeForm, validationConfig)
-    openModal(popupAvatarChange)
-    avatarChangeForm.reset()
+    clearValidation(avatarChangeForm, validationConfig);
+    openModal(popupAvatarChange);
+    avatarChangeForm.reset();
 });
 
 // Слушатель события на отправку формы изменения аватара
@@ -187,7 +175,7 @@ avatarChangeForm.addEventListener('submit', function(evt) {
     turnLoading(true, avatarChangeForm.querySelector('.popup__button'));
     editMyAvatar(newAvatarUrl)
         .then(() => {
-            profileImage.style.backgroundImage = `url(${newAvatarUrl})`;
+            profileImage.style.backgroundImage = `url(${newAvatarUrl})`
             closeModal(popupAvatarChange);
         })
         .catch((err) => {
@@ -195,9 +183,8 @@ avatarChangeForm.addEventListener('submit', function(evt) {
         })
         .finally(() => {
             turnLoading(false, avatarChangeForm.querySelector('.popup__button'));
-        });
+        })
 });
-
 
 // Функция для управления состоянием загрузки кнопки отправки формы
 function turnLoading(form, button) {
@@ -208,4 +195,4 @@ function turnLoading(form, button) {
     } else {
       button.textContent = textSave;
     }
-  } 
+  };

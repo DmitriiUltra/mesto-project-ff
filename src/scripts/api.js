@@ -13,10 +13,6 @@
   const cardsData = getData(dataCards);
   const myProfileData = getData(dataProfile);
 
-  console.log(myProfileData)
-  console.log(cardsData)
-
-
   // Получения данных с сервера
   function getData(dataItem) {
     return fetch(config.baseUrl + dataItem, {
@@ -25,7 +21,7 @@
             authorization: config.headers.authorization
         }
     })
-    .then(checkServerAnswer)
+    .then(checkServerAnswer);
   };
 
   // Функция для отправки запроса на сервер для обновления данных профиля
@@ -41,7 +37,7 @@
             about: about
         })
     })
-    .then(checkServerAnswer)
+    .then(checkServerAnswer);
   };
 
   // Запрос на сервер для добавления новой карточки
@@ -57,7 +53,7 @@
             link: link
         })
     })
-    .then(checkServerAnswer)
+    .then(checkServerAnswer);
   };
 
   // Запрос на сервер для удаления карточки

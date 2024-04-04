@@ -10,6 +10,7 @@ function createCard(name, link, likes, toggleLike, deleteCardElement, openLargeC
     const likeBox = cardElement.querySelector('.card__like-box');
 
     cardElement.querySelector('.card__title').textContent = name;
+    cardElement.setAttribute('id', card._id);
     cardImg.src = link;
     cardImg.alt = name;
     likeBox.textContent = likes;
@@ -22,36 +23,18 @@ function createCard(name, link, likes, toggleLike, deleteCardElement, openLargeC
   
     likeButton.addEventListener('click', () => toggleLike(card._id, likeButton, likeBox));
     cardImg.addEventListener('click', () => openLargeCard({name, link}));
-
-    // deleteButton.addEventListener('click', () => openDeleteConfirmationPopup(deleteButton, cardElement));
-    // deleteButton.addEventListener('click', () => openDeleteConfirmationPopup(cardId));
     deleteButton.addEventListener('click', () => openDeleteConfirmationPopup(card._id));
-
-
 
     return cardElement;
   };
-  
-//   // Функция удаления карточки
-//   function deleteCardElement(cardElement) {  
-//     cardElement.remove(); 
-//   };  
-
-//   // Функция лайка карточки
-//   function likeCard(evt) {
-//     evt.classList.toggle('card__like-button_is-active');
-//   };
-
 
 // Функция удаляет элемент карточки из DOM
-  function deleteCardElement(card) {
-    const cardToDelete = document.getElementById(card._id);
+function deleteCardElement(cardId) {
+    const cardToDelete = document.getElementById(cardId);
     if (cardToDelete) {
         cardToDelete.remove();
     }
-}
-
-
+};
 
 // Переключение состояния лайка карточки
 function toggleLike(cardId, likeButton, likeBox) {
@@ -71,13 +54,10 @@ function toggleLike(cardId, likeButton, likeBox) {
                 likeBox.textContent = updatedCard.likes.length;
                 likeButton.classList.add('card__like-button_is-active');
             })
-            .catch((error) => {
-                console.err('Ошибка лайка:', err);
+            .catch((err) => {
+                console.error('Ошибка лайка:', err);
             });
     }
-}
+};
 
-
-
-  
   export {createCard, toggleLike, deleteCardElement};
