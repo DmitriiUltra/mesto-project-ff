@@ -1,6 +1,6 @@
-  const dataProfile = '/users/me';
-  const dataAvatar = '/users/me/avatar';
-  const dataCards = '/cards';
+  const urlProfile = '/users/me';
+  const urlAvatar = '/users/me/avatar';
+  const urlCards = '/cards';
 
   const config = {
     baseUrl: 'https://nomoreparties.co/v1/wff-cohort-10',
@@ -10,8 +10,10 @@
     }
   };
 
-  const cardsData = getData(dataCards);
-  const myProfileData = getData(dataProfile);
+  const cardsData = getData(urlCards);
+  const myProfileData = getData(urlProfile);
+
+  console.log(cardsData)
 
   // Получения данных с сервера
   function getData(dataItem) {
@@ -26,7 +28,7 @@
 
   // Функция для отправки запроса на сервер для обновления данных профиля
   function editMyProfile(name, about) {
-    return fetch(config.baseUrl + dataProfile, {
+    return fetch(config.baseUrl + urlProfile, {
         method: 'PATCH',
         headers: {
             authorization: config.headers.authorization,
@@ -42,7 +44,7 @@
 
   // Запрос на сервер для добавления новой карточки
   function sendNewCard(name, link) {
-    return fetch(config.baseUrl + dataCards, {
+    return fetch(config.baseUrl + urlCards, {
         method: 'POST',
         headers: {
             authorization: config.headers.authorization,
@@ -69,7 +71,7 @@
 
 // Запрос на сервер для обновления аватара пользовател
 function editMyAvatar(newAvatarUrl) {
-    return fetch(config.baseUrl + dataAvatar, {
+    return fetch(config.baseUrl + urlAvatar, {
         method: 'PATCH',
         headers: {
             authorization: config.headers.authorization,
@@ -112,5 +114,5 @@ function checkServerAnswer(res) {
     return Promise.reject(`Ошибка: ${res.status}`);
   };
 
-export {likeCard, deleteLike, editMyProfile, sendNewCard, deleteCard, editMyAvatar, myProfileData, cardsData}
+export {likeCard, deleteLike, editMyProfile, sendNewCard, deleteCard, editMyAvatar, myProfileData, cardsData};
 

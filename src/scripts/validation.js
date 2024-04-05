@@ -34,15 +34,12 @@ const showInputError = (formElement, inputElement, errorMessage, validationConfi
       return !inputElement.validity.valid;
     });
   };
-  
-  // Функция переключения режима кнопки 
-  const toggleButtonState = (inputList, buttonElement) => {
-    if (hasInvalidInput(inputList)) {
-      buttonElement.disabled = true;
-    } else {
-      buttonElement.disabled = false;
-    }
+ 
+   // Функция переключения режима кнопки 
+   const toggleButtonState = (inputList, buttonElement) => {
+    buttonElement.disabled = hasInvalidInput(inputList)
   };
+
   
   // Функция добавления слушателя всем интупам
   const setEventListeners = (formElement, validationConfig) => {
