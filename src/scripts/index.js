@@ -92,10 +92,10 @@ popupOverlays.forEach((item) => {
 
 // Функция для обработки отправки формы редактирования профиля
 function handleFormEditProfileSubmit(evt) {
-    evt.preventDefault(); 
+    evt.preventDefault();
     const newName = profileEditNameInput.value;
     const newAbout = profileEditAboutInput.value;
-    
+
     turnLoading(true, profileEditForm.querySelector('.popup__button'));
     editMyProfile(newName, newAbout)
         .then((profile) => {
@@ -112,7 +112,7 @@ function handleFormEditProfileSubmit(evt) {
 };
 
 // Слушатель события на форме редактирования профиля
-profileEditForm.addEventListener('submit', handleFormEditProfileSubmit); 
+profileEditForm.addEventListener('submit', handleFormEditProfileSubmit);
 
 // Открытие модального окна новой карточки
 buttonAddCard.addEventListener('click', function() {
@@ -130,7 +130,10 @@ function createNewCard(evt) {
     .then((card) => {
 
         // cardPlace.prepend(createCard(newCardNameInput.value, newCardLinkInput.value, card.likes.length, toggleLike, deleteCardElement, openLargeCard, true, openDeleteConfirmationPopup, card));
-        cardPlace.prepend(createCard(newCardNameInput.value, newCardLinkInput.value, card, toggleLike, deleteCardElement, openLargeCard, true, openDeleteConfirmationPopup, profileId));
+
+      // 1. А тут что-то не совпадают передаваемые агрументы с сигнатурой функции createCard. Вроде бы не должно быть первых двух, не?
+      // 2. У тебя уже есть профиль айди в card :)
+      cardPlace.prepend(createCard(card, toggleLike, deleteCardElement, openLargeCard, true, openDeleteConfirmationPopup, card.owner._id));
 
         closeModal(popupAddCard);
     })
