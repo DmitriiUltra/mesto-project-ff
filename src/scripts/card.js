@@ -1,37 +1,5 @@
 import {likeCard, deleteLike} from './api.js';
 
-// // Функция создает карточку и вешает обработчики событий
-//   function createCard(name, link, likes, toggleLike, deleteCardElement, openLargeCard, isOwner, openDeleteConfirmationPopup, card, profileId) {
-//     const cardTemplate = document.querySelector('#card-template').content;
-//     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
-//     const cardImg = cardElement.querySelector('.card__image');
-//     const deleteButton = cardElement.querySelector('.card__delete-button');
-//     const likeButton = cardElement.querySelector('.card__like-button');
-//     const likeBox = cardElement.querySelector('.card__like-box');
-
-//     cardElement.querySelector('.card__title').textContent = name;
-//     cardElement.setAttribute('id', card._id);
-//     cardImg.src = link;
-//     cardImg.alt = name;
-//     likeBox.textContent = likes;
-
-//     if (isOwner) {
-//         deleteButton.style.display = 'block';
-//         deleteButton.addEventListener('click', () => openDeleteConfirmationPopup(card._id));
-
-//     } else {
-//         deleteButton.style.display = 'none';
-//     } if (checkLike(card.likes, profileId)) {
-//         likeButton.classList.add('card__like-button_is-active');
-//     }
-
-//     likeButton.addEventListener('click', () => toggleLike(card._id, likeButton, likeBox));
-//     cardImg.addEventListener('click', () => openLargeCard({name, link}));
-
-//     return cardElement;
-// };
-
-
 function createCard(card, toggleLike, deleteCardElement, openLargeCard, isOwner, openDeleteConfirmationPopup, profileId) {
     const cardTemplate = document.querySelector('#card-template').content;
     const cardElement = cardTemplate.querySelector('.card').cloneNode(true);
@@ -62,8 +30,6 @@ function createCard(card, toggleLike, deleteCardElement, openLargeCard, isOwner,
     return cardElement;
 };
 
-
-
 // Функция удаляет элемент карточки из DOM
 function deleteCardElement(cardId) {
     document.getElementById(cardId)?.remove();
@@ -90,7 +56,5 @@ function checkLike(cardLikes, profileId) {
       return like._id === profileId
     })
   };
-
-
 
 export {createCard, toggleLike, deleteCardElement};

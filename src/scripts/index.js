@@ -57,9 +57,7 @@ Promise.all([myProfileData, cardsData])
     profileDescription.textContent = profile.about;
     cards.forEach((card) => {
       const isOwner = card.owner._id === profileId;
-
-    //   const cardElement = createCard(card.name, card.link, card.likes.length, toggleLike, deleteCardElement, openLargeCard, isOwner, openDeleteConfirmationPopup, card, profileId);
-    const cardElement = createCard(card, toggleLike, deleteCardElement, openLargeCard, isOwner, openDeleteConfirmationPopup, profileId);
+      const cardElement = createCard(card, toggleLike, deleteCardElement, openLargeCard, isOwner, openDeleteConfirmationPopup, profileId);
 
       cardPlace.append(cardElement);
     })
@@ -128,10 +126,7 @@ function createNewCard(evt) {
     turnLoading(true, newCardForm.querySelector('.popup__button'));
     sendNewCard(newCardNameInput.value, newCardLinkInput.value)
     .then((card) => {
-
-        // cardPlace.prepend(createCard(newCardNameInput.value, newCardLinkInput.value, card.likes.length, toggleLike, deleteCardElement, openLargeCard, true, openDeleteConfirmationPopup, card));
-        cardPlace.prepend(createCard(newCardNameInput.value, newCardLinkInput.value, card, toggleLike, deleteCardElement, openLargeCard, true, openDeleteConfirmationPopup, profileId));
-
+        cardPlace.prepend(createCard(card, toggleLike, deleteCardElement, openLargeCard, true, openDeleteConfirmationPopup, card.owner._id));
         closeModal(popupAddCard);
     })
         .catch((err) => {
@@ -142,15 +137,8 @@ function createNewCard(evt) {
         })
 };
 
-
-
-
-
 // Слушатель добавления новой карточки из формы
 newCardForm.addEventListener('submit', createNewCard);
-
-
-
 
 // Функция открытия большой карточки
 function openLargeCard({name, link}) {
